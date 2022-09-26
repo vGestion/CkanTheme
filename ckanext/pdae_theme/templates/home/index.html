@@ -15,20 +15,51 @@
   <section class="bg-blue-sapphire section-lg text-white" id="home-main-banner">
     <div class="container">
       <div class="row d-flex align-items-end flex-wrap">
-        <div class="col-xs-8 col-xs-offset-2 col-md-5 col-md-offset-0 col-md-push-7">
-          <img class="img-responsive center-block" src="/images/icon-home.png" alt="">
-        </div>
-        <div class="col-md-7 col-md-pull-5 mt-32 text-center md:mt-0 md:text-start">
-          <h1 class="fs-52 fw-bold mt-0 leading-none">
-            Busca en nuestro catálogo de Datos Abiertos
+        <div class="col-xs-8 col-xs-offset-2 col-md-5 col-md-offset-0 col-md-push-7 busquedaMain">
+          <p class="fs-32 mt-20 leading-tight centerText">
+            Bienvenido al Portal de Datos Abiertos de Cuenca
+          </p>
+          <h1 class="fs-18 centerText">
+            Explora, conoce y accede a datos abiertos del Gobierno Autonomo Descentralizado de Cuenca
           </h1>
-          <div class="row">
-            <div class="col-md-8">
-              <p class="fs-22 mt-20 leading-tight">
-                Explora más de <span class="fw-bold">{{ dataset_count }} conjuntos de datos</span> de más de <span class="fw-bold">{{ organization_count | length }} instituciones</span>.
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section-lg">
+    <div class="section-lg">
+      <div class="container">
+        <div class="row d-flex justify-content-center flex-wrap mt-4 mb-4">
+          <div class="container">
+            <div class="row d-flex justify-content-center flex-wrap align-items-center mt-0 bg-eagle-green">
+              <p class="fs-18 fw-bold mt-8 mb-8">
+                Consulta nuestros conjuntos de datos
               </p>
-              <div class="mt-20">
-                {% snippet "snippets/pdae_theme_dataset_search.html", query=query %}
+            </div>
+            <div class="mt-20">
+              {% snippet "snippets/pdae_theme_dataset_search.html", query=query %}
+            </div>
+            <div class="d-flex justify-content-center flex-wrap align-items-center mt-0">
+              <p class="fs-22  mt-16 mb-8">
+                Categorías
+              </p>
+            </div>
+           
+            <div class="row d-flex justify-content-center flex-wrap align-items-center mt-0">
+
+              <div class="pdae-groups-list mt-8 mb-8">
+                {% for group in groups %}
+                <a href="{{ h.url_for(group.type ~ '.read', id=group.name) }}" class="pdae-group-list-item">
+                  <div class="d-flex">
+                    <div class="col">
+                      <img src="{{ group.image_display_url }}" class="group-image" alt="{{ group.display_name }}">
+                    </div>
+                    <div class="col">
+                      <h5>{{ group.display_name }}</h5>
+                    </div>
+                  </div>
+                </a>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -36,37 +67,12 @@
       </div>
     </div>
   </section>
-  <div class="pdae-groups-banner section-lg">
-    <div class="container">
-      <div class="pdae-groups-list">
-        {% for group in groups %}
-          <a href="{{ h.url_for(group.type ~ '.read', id=group.name) }}" class="pdae-group-list-item">
-            <img src="{{ group.image_display_url }}" alt="{{ group.display_name }}">
-            <span class="mt-4">{{ group.display_name }}</span>
-          </a>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-  <div class="section-lg">
-    <div class="container">
-      <div class="row d-flex flex-wrap">
-        <div class="col-xs-12 col-sm-4 col-sm-offset-1 col-md-2 col-md-offset-3">
-          <a href="https://www.gobiernoabierto.ec" target="_blank">
-            <img class="img-responsive center-block" src="/images/gobierno_abierto.png" alt="">
-          </a>
-        </div>
-        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 d-flex flex-column fs-18 mt-16 md:mt-0">
-          <div class="d-flex align-items-center flex-grow">
-            <p class="mb-0">El compromiso <strong>"Re-diseño y actualización del portal de datos abiertos"</strong> es parte del primer Plan de Acción de <a href="https://www.gobiernoabierto.ec" target="_blank"class="text-blue-sapphire">Gobierno Abierto Ecuador</a> 2019-2022</p>
-          </div>
-          <p class="text-end mt-8 mb-0"><a href="https://www.gobiernoabierto.ec" target="_blank" class="text-blue-sapphire">Conoce más</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
   {% set show_featured_banner = h.show_featured_banner() %}
-  {{ h.snippet("home/snippets/pdae_theme_featured_banner.html", show_featured_banner=show_featured_banner, featured_banner=featured_banner) }}
+  {{ h.snippet("home/snippets/pdae_theme_featured_banner.html", show_featured_banner=show_featured_banner,
+  featured_banner=featured_banner) }}
+  <!--
   <section class="bg-cultured section-lg">
     <div class="container">
       <div class="text-center">
@@ -85,6 +91,7 @@
       {% endif %}
     </div>
   </section>
+ 
   <div class="section has-bg-image home-topics text-white">
     <div class="container">
       <div class="row text-center d-flex align-items-center flex-wrap">
@@ -175,16 +182,17 @@
       </div>
     </div>
   </section>
+-->
 </main>
 {% endblock %}
 
 {%- block custom_styles %}
-  {{ super() }}
-  {% asset 'ckanext-pdae_theme/pdae_theme_swiper_css' %}
+{{ super() }}
+{% asset 'ckanext-pdae_theme/pdae_theme_swiper_css' %}
 {% endblock %}
 
 {%- block scripts %}
-  {{ super() }}
-  {% asset 'ckanext-pdae_theme/pdae_theme_swiper_js' %}
-  {% asset 'ckanext-pdae_theme/pdae_theme_slider' %}
+{{ super() }}
+{% asset 'ckanext-pdae_theme/pdae_theme_swiper_js' %}
+{% asset 'ckanext-pdae_theme/pdae_theme_slider' %}
 {% endblock -%}

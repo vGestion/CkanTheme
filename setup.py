@@ -84,7 +84,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
-        pdae_theme=ckanext.pdae_theme.plugin:PdaeThemePlugin
+        datalat_theme=ckanext.pdae_theme.plugin:PdaeThemePlugin
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan

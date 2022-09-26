@@ -1,43 +1,42 @@
-{% ckan_extends %}
+{% extends "page.html" %}
 
-{% block content %}
-<main id="content">
-  {{ self.flash() }}
-  <section class="section bg-cultured">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5">
-          <div class="row">
-            <div class="col-md-6">
-              <img src="/images/datos-abiertos.png" alt="" class="img-responsive">
-            </div>
-          </div>
-          <div class="text-blue-sapphire">
-            <h1 class="fs-52 fw-light mt-0">Portal de Gestores</h1>
-            <p class="mt-16 leading-normal">
-              Este ingreso es exclusivo para <span class="fw-bold">gestores de datos</span>. Al iniciar sesión con las credenciales que fueron entregadas a sus entidades, estos gestores pueden cargar y actualizar los conjuntos de datos disponibles en esta plataforma.
-            </p>
-            <p class="leading-normal mt-16">
-              Si no eres un gestor de datos y quieres consultar los datos disponibles, no es necesario que inicies sesión. Todos los datos abiertos están publicados en nuestro <a href="{{ h.url_for('dataset.search') }}" class="fw-bold text-underline">Catálogo de Datos Abiertos</a>.
-            </p>
-            <a href="{{ h.url_for('dataset.search') }}" class="btn btn-lg btn-blue-sapphire mt-32">
-              Ir al catálogo
-            </a>
-          </div>
-        </div>
-        <div class="col-md-5 col-md-offset-2">
-          <div class="text-center">
-            <h2 class="fs-35 text-sinopia">Iniciar sesión</h2>
-            <p class="text-blue-sapphire">
-              Si tienes problemas con tus credenciales, por favor escríbenos a <a href="mailto:{{ h.get_support_email() }}" class="fw-bold text-underline text-blue-sapphire">{{ h.get_support_email() }}</a>.
-            </p>
-          </div>
-          <div class="mt-32">
-            {% snippet "user/snippets/login_form.html", action=g.login_handler, error_summary=error_summary %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
+{% block subtitle %}{{ _('Login') }}{% endblock %}
+
+{% block breadcrumb_content %}
+<li class="active">{{ h.nav_link(_('Login'), named_route='user.login') }}</li>
+{% endblock %}
+
+{% block primary_content %}
+<section class="module">
+  <div class="module-content">
+    <h1 class="page-heading">{% block page_heading %}{{ _('Login') }}{% endblock %}</h1>
+    {% block form %}
+    {% snippet "user/snippets/login_form.html", action=g.login_handler, error_summary=error_summary %}
+    {% endblock %}
+  </div>
+</section>
+{% endblock %}
+
+{% block secondary_content %}
+{% if h.check_access('user_create') %}
+{% block help_register %}
+<section class="module module-narrow module-shallow justify-content-center" >
+  {% block help_register_inner %}
+  <h1 class="module-heading">{{ _('PORTAL DE GESTORES') }}</h1>
+  <div class="module-content">
+    <p>{% trans %}Lorem Ipsum is simply dummy text of the printing and typesetting industry. {% endtrans %}</p>
+    <p class="action">
+      {% block help_register_button %}
+      <a class="btn btn-default btn-sinopia" href="/dataset">{{ _('Regresar al catálogo') }}</a>
+      {% endblock %}
+    </p>
+  </div>
+  {% endblock %}
+</section>
+{% endblock %}
+{% endif %}
+
+{% block help_forgotten %}
+
+{% endblock %}
 {% endblock %}

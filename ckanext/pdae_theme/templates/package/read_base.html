@@ -18,14 +18,9 @@
         </div>
       {% endif %}
       <div class="row mt-16">
-        <div class="col-md-8">
+        <div class="col-md-12">
           {% block primary_content %}
             {{ super() }}
-          {% endblock %}
-        </div>
-        <div class="col-md-4 mt-32 md:mt-0">
-          {% block secondary_content %}
-            {% snippet "package/snippets/pdae_theme_dataset_metadata.html", title="Metadatos", pkg=pkg %}
           {% endblock %}
         </div>
       </div>

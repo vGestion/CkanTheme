@@ -5,7 +5,7 @@
   {% with items = items or h.get_facet_items_dict(name, search_facets or c.search_facets) %}
     {% if items or not hide_empty %}
       <div class="panel bg-blue-sapphire border-0">
-        <div id="{{ name }}-filter-heading" class="panel-heading" role="tab">
+        <div id="{{ name }}-filter-heading" class="panel-heading" role="tab" style="background-color: var(--eagle-green)">
           <h3 class="panel-title">
             <a role="button" data-toggle="collapse" href="#{{ name }}-filter" aria-expanded="true" aria-controls="{{ name }}-filter" class="d-block text-decoration-none{% if not is_first_panel %} collapsed{% endif %}" {% if parent %}data-parent="#{{parent}}"{% endif %}>
               {{ title }}
